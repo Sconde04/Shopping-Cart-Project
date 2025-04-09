@@ -22,7 +22,7 @@ const CartIcon = ({ itemCount = 0, className }: CartIconProps) => {
         <circle cx="20" cy="21" r="1" />
       </svg>
       {itemCount > 0 && (
-        <span className="absolute top-[-8px] right-[-8px] text-xs bg-red-500 text-white rounded-full px-1">
+        <span className="absolute top-[-8px] right-[-8px] text-xs bg-[rgb(60,60,60)] text-white rounded-full px-1">
           {itemCount}
         </span>
       )}
