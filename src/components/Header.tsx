@@ -1,6 +1,8 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import CartIcon from "./CartIcon";
  
-export const Header = () => {
+const Header: React.FC = () => {
   return (
     <header className="w-full">
       <div className="bg-[rgb(60,60,60)] text-white text-sm text-center py-2">
@@ -9,12 +11,12 @@ export const Header = () => {
       <div className="relative flex justify-end items-center px-12 py-12 border-b">
         {/* Title centered absolutely */}
         <h1 className="absolute left-1/2 transform -translate-x-1/2 text-xl font-bold">
-          @Shopping Cart
+          <Link to="/">@Shopping Cart</Link>
         </h1>
 
         {/* Cart icon aligned to the right */}
         <div className="relative">
-          <CartIcon itemCount={0}/>
+          <Link to="/cart"><CartIcon itemCount={0}/></Link>
           <span className="absolute top-[-8px] right-[-8px] text-xs bg-[rgb(60,60,60)] text-white rounded-full px-1">
             2
           </span>
@@ -23,3 +25,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;
