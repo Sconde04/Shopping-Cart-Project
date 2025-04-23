@@ -103,7 +103,6 @@ const Events: React.FC = () => {
   ];  
 
   const [visibleEvents, setVisibleEvents] = useState(5); // Number of visible concerts at the start
-  //const percentage = (visibleEvents / events.length) * 100; // Show progress bar
 
   // Function to load more concerts
   const loadMoreEvents = () => {
@@ -111,14 +110,14 @@ const Events: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="bg-white">
       {/* Mostrar el total de productos y los visibles en la misma línea */}
-      <div className="ml-10  mr-10 flex justify-between items-center text-lg font-semibold pt-8">
+      <div className="ml-10 mr-10 flex justify-between items-center text-lg font-semibold pt-8">
         <div>{events.length} Products</div>
         <div className="flex items-center gap-2">Show {visibleEvents} products <FaChevronDown /></div>
       </div>
   
-      <div className="flex-grow p-8 bg-white">
+      <div className="p-8 bg-white">
         {/* Mostrar los conciertos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           {events.slice(0, visibleEvents).map((event, index) => (
@@ -152,7 +151,7 @@ const Events: React.FC = () => {
 
         {/* Botón Show More */}
         {visibleEvents < events.length && (
-          <div className="flex justify-center items-center mt-12 px-4">
+          <div className="flex justify-center items-center mt-12 mb-8">
             <Button
               label={
                 <>
