@@ -30,7 +30,7 @@ const CartItem: React.FC<CartItemProps> = ({
   const hasDiscount = price && discountedPrice && discountedPrice < price;
 
   // Aplicamos clases condicionales para los bordes redondeados
-  const containerClasses = `py-4 px-6 flex items-center bg-white ${
+  const containerClasses = `py-10 px-6 flex items-center bg-white ${
     isFirst ? 'rounded-t-lg' : ''
   } ${isLast ? 'rounded-b-lg' : ''}`;
 
@@ -49,23 +49,23 @@ const CartItem: React.FC<CartItemProps> = ({
             
             {/* Control de cantidad */}
             <div className="mt-12">
-              <div className="flex border border-gray-300 rounded w-24">
+              <div className="flex border-2 border-gray-300 rounded w-24">
                 <input
                   type="text"
                   value={quantity}
                   readOnly
                   className="w-full text-center py-1"
                 />
-                <div className="flex flex-col border-l border-gray-300">
+                <div className="flex flex-col border-l-2 border-gray-300">
                   <button
                     onClick={onIncrease}
-                    className="flex items-center justify-center h-6 hover:bg-gray-100"
+                    className="flex items-center justify-center h-4 hover:bg-gray-100"
                   >
                     <HiChevronUp className="w-4 h-4 text-gray-600" />
                   </button>
                   <button
                     onClick={onDecrease}
-                    className="flex items-center justify-center h-6 hover:bg-gray-100 border-t border-gray-300"
+                    className="flex items-center justify-center h-4 hover:bg-gray-100 border-t-2 border-gray-300"
                   >
                     <HiChevronDown className="w-4 h-4 text-gray-600" />
                   </button>
@@ -76,10 +76,10 @@ const CartItem: React.FC<CartItemProps> = ({
 
           {/* Columna derecha con precio y botón eliminar */}
           <div className="flex flex-col items-end justify-between">
-            {/* Botón eliminar */}
+            {/* Botón eliminar */}        
             <button
               onClick={onRemove}
-              className="p-2 hover:bg-gray-100 rounded-full"
+              className="p-2 bg-gray-100 hover:bg-gray-300 rounded-sm transition-colors"
             >
               <FiTrash2 className="w-5 h-5 text-gray-500" />
             </button>
