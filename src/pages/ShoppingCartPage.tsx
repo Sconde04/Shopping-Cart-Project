@@ -24,7 +24,13 @@ const ShoppingCartPage: React.FC = () => {
     setItems(items.filter((_, i) => i !== idx));
   };
 
+  // Calcular el número total de items
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
+  
+  // Calcular el precio total sin descuentos (subtotal)
+  const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  
+  // Calcular el precio total con descuentos aplicados
   const totalPrice = items.reduce((sum, i) => sum + i.discountedPrice * i.quantity, 0);
 
   return (
@@ -43,7 +49,7 @@ const ShoppingCartPage: React.FC = () => {
           />
         </div>
         <div>
-          <Summary totalItems={totalItems} totalPrice={totalPrice} />
+          <Summary totalItems={totalItems} subtotal={subtotal} totalPrice={totalPrice} />
         </div>
       </div>
     </div>
