@@ -76,10 +76,10 @@ const CartItem: React.FC<CartItemProps> = ({
 
           {/* Columna derecha con precio y botón eliminar */}
           <div className="flex flex-col items-end justify-between">
-            {/* Botón eliminar */}
+            {/* Botón eliminar */}        
             <button
               onClick={onRemove}
-              className="p-2 hover:bg-gray-100 rounded-full"
+              className="p-2 bg-gray-100 hover:bg-gray-300 rounded-sm transition-colors"
             >
               <FiTrash2 className="w-5 h-5 text-gray-500" />
             </button>
