@@ -8,9 +8,9 @@ const Header: React.FC = () => {
       <div className="bg-[rgb(60,60,60)] text-white text-sm text-center py-2">
         Free shipping on all orders over $200! For a limited time only.
       </div>
-      <div className="relative flex justify-end items-center px-12 py-12 border-b">
+      <div className="relative flex justify-end items-center px-12 py-12 border-b-2 border-gray-200">
         {/* Title centered absolutely */}
-        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-xl font-bold">
+        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-bold">
           <Link to="/">@Shopping Cart</Link>
         </h1>
 
