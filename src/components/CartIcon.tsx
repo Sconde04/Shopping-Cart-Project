@@ -1,11 +1,11 @@
 type CartIconProps = {
   itemCount?: number;
-  className?: string; // Añadimos className para aceptar clases de estilo
+  className?: string; // We added classname to accept style classes
 };
 
 const CartIcon = ({ itemCount = 0, className }: CartIconProps) => {
   return (
-    <div className={`relative ${className}`}> {/* Aplicamos className aquí */}
+    <div className={`relative ${className}`}> {/* AAply classname here */}
       <svg
         className="w-6 h-6"
         fill="none"

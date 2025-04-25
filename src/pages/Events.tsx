@@ -13,7 +13,7 @@ const Events: React.FC = () => {
       time: "12:00",
       price: 119,
       discount: 20,
-      place: "Madrid", // Lugar aleatorio
+      place: "Madrid",
     },
     {
       image: "/public/event2.jpg",
@@ -22,7 +22,7 @@ const Events: React.FC = () => {
       date: "10 de mayo, 2025",
       time: "18:00",
       price: 95,
-      place: "Barcelona", // Lugar aleatorio
+      place: "Barcelona",
     },
     {
       image: "/public/event1.jpg",
@@ -32,7 +32,7 @@ const Events: React.FC = () => {
       time: "20:00",
       price: 110,
       discount: 10,
-      place: "Valencia", // Lugar aleatorio
+      place: "Valencia",
     },
     {
       image: "/public/event2.jpg",
@@ -41,7 +41,7 @@ const Events: React.FC = () => {
       date: "15 de junio, 2025",
       time: "15:00",
       price: 125,
-      place: "Sevilla", // Lugar aleatorio
+      place: "Sevilla",
     },
     {
       image: "/public/event1.jpg",
@@ -51,7 +51,7 @@ const Events: React.FC = () => {
       time: "17:00",
       price: 130,
       discount: 15,
-      place: "Bilbao", // Lugar aleatorio
+      place: "Bilbao",
     },
     {
       image: "/public/event2.jpg",
@@ -60,7 +60,7 @@ const Events: React.FC = () => {
       date: "10 de agosto, 2025",
       time: "18:00",
       price: 100,
-      place: "Granada", // Lugar aleatorio
+      place: "Granada",
     },
     {
       image: "/public/event1.jpg",
@@ -70,7 +70,7 @@ const Events: React.FC = () => {
       time: "20:00",
       price: 105,
       discount: 5,
-      place: "Alicante", // Lugar aleatorio
+      place: "Alicante",
     },
     {
       image: "/public/event2.jpg",
@@ -79,7 +79,7 @@ const Events: React.FC = () => {
       date: "5 de septiembre, 2025",
       time: "21:00",
       price: 120,
-      place: "Zaragoza", // Lugar aleatorio
+      place: "Zaragoza",
     },
     {
       image: "/public/event1.jpg",
@@ -89,7 +89,7 @@ const Events: React.FC = () => {
       time: "10:00",
       price: 90,
       discount: 25,
-      place: "Malaga", // Lugar aleatorio
+      place: "Malaga",
     },
     {
       image: "/public/event2.jpg",
@@ -98,7 +98,7 @@ const Events: React.FC = () => {
       date: "25 de octubre, 2025",
       time: "23:00",
       price: 140,
-      place: "Madrid", // Lugar aleatorio
+      place: "Madrid",
     },
   ];  
 
@@ -111,14 +111,14 @@ const Events: React.FC = () => {
 
   return (
     <div className="bg-white">
-      {/* Mostrar el total de productos y los visibles en la misma línea */}
+      {/* Show total of products and the visibles in the same line */}
       <div className="ml-10 mr-10 flex justify-between items-center text-lg font-semibold pt-8">
         <div>{events.length} Products</div>
         <div className="flex items-center gap-2">Show {visibleEvents} products <FaChevronDown /></div>
       </div>
   
       <div className="p-8 bg-white">
-        {/* Mostrar los conciertos */}
+        {/* Show the concerts */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
           {events.slice(0, visibleEvents).map((event, index) => (
             <EventCard
@@ -144,18 +144,18 @@ const Events: React.FC = () => {
         <div className="flex justify-center w-full mb-6">
           <div className="w-80 bg-gray-400 rounded-full h-2">
             <div className="bg-[rgb(60,60,60)] h-2 rounded-full" 
-              style={{ width: `${(visibleEvents / events.length) * 100}%` }} // Llenado dinámico
+              style={{ width: `${(visibleEvents / events.length) * 100}%` }} // Dynamic filling
             ></div>
           </div>
         </div>
 
-        {/* Botón Show More */}
+        {/* Show More Button */}
         {visibleEvents < events.length && (
           <div className="flex justify-center items-center mt-12 mb-8">
             <Button
               label={
                 <>
-                  <FaChevronDown className="inline-block mr-2" /> {/* Icono a la izquierda */}
+                  <FaChevronDown className="inline-block mr-2" /> {/* Icon align to left */}
                   Show More
                 </>
               }

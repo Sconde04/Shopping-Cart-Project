@@ -8,7 +8,7 @@ import ShoppingCartPage from './pages/ShoppingCartPage';
 
 const App: React.FC = () => {
   return (
-    <Router> {/* Aquí envuelves toda la aplicación con Router */}
+    <Router> {/* Environment all the application with the React Router */}
       <div className="w-screen h-screen flex flex-col">
         <Header />
         <main className="flex-1 bg-gray-100">

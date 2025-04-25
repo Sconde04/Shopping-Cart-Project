@@ -2,8 +2,8 @@ import React from 'react';
 
 type SummaryProps = {
   totalItems: number;
-  subtotal: number;  // Precio total sin descuentos
-  totalPrice: number; // Precio total con descuentos aplicados
+  subtotal: number;  // Total price without discount
+  totalPrice: number; // Total price with discount applied
 };
 
 const Summary: React.FC<SummaryProps> = ({ totalItems, subtotal, totalPrice }) => (

@@ -52,11 +52,11 @@ const EventCard: React.FC<EventProps> = ({
         )}
       </div>
 
-      {/* Botón de añadir al carrito */}
+      {/* Add to cart button */}
       <button className="w-full mt-4 py-2 px-4 bg-[rgb(60,60,60)] text-white text-sm font-semibold rounded-xl hover:bg-black transition flex items-center justify-center relative">
-        {/* Ícono del carrito a la izquierda */}
-        <CartIcon className="w-6 h-6 absolute left-4" /> {/* Usamos absolute para posicionarlo */}
-        {/* Texto centrado */}
+        {/* Icon of cart align to right */}
+        <CartIcon className="w-6 h-6 absolute left-4" /> {/* Use absolute to position it */}
+        {/* Text center */}
         <span className="text-center w-full">ADD TO CART</span>
       </button>
     </div>
