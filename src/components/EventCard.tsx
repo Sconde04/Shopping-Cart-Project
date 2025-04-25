@@ -36,22 +36,27 @@ const EventCard: React.FC<EventProps> = ({
       <p className="text-sm text-gray-600 mb-3">{place}</p>
       <p className="text-sm text-gray-600 mb-2">{date} - {time}</p>
 
-      <div className="flex justify-between items-center mt-auto">
+      <div className="flex items-center mt-auto">
+        <span className="text-lg font-semibold text-black mr-3">
+          {discountedPrice.toFixed(2)} $
+        </span>
         {discount && (
-          <span className="text-xs text-red-500 line-through">
+          <span className="text-lg text-gray-400 line-through mr-3">
             {price.toFixed(2)} $
           </span>
         )}
-        <span className="text-lg font-semibold text-green-600">
-          {discountedPrice.toFixed(2)} $
-        </span>
+        {discount && (
+          <span className="text-lg font-semibold text-black mr-3">
+            -{discount}%
+          </span>
+        )}
       </div>
 
-      {/* Botón de añadir al carrito */}
+      {/* Add to cart button */}
       <button className="w-full mt-4 py-2 px-4 bg-[rgb(60,60,60)] text-white text-sm font-semibold rounded-xl hover:bg-black transition flex items-center justify-center relative">
-        {/* Ícono del carrito a la izquierda */}
-        <CartIcon className="w-6 h-6 absolute left-4" /> {/* Usamos absolute para posicionarlo */}
-        {/* Texto centrado */}
+        {/* Icon of cart align to right */}
+        <CartIcon className="w-6 h-6 absolute left-4" /> {/* Use absolute to position it */}
+        {/* Text center */}
         <span className="text-center w-full">ADD TO CART</span>
       </button>
     </div>

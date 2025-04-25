@@ -29,7 +29,7 @@ const CartItem: React.FC<CartItemProps> = ({
   const savedPercent = price && discountedPrice ? Math.round((1 - discountedPrice / price) * 100) : 0;
   const hasDiscount = price && discountedPrice && discountedPrice < price;
 
-  // Aplicamos clases condicionales para los bordes redondeados
+  // Apply conditional classes for rounded borders
   const containerClasses = `py-10 px-6 flex items-center bg-white ${
     isFirst ? 'rounded-t-lg' : ''
   } ${isLast ? 'rounded-b-lg' : ''}`;
@@ -37,17 +37,17 @@ const CartItem: React.FC<CartItemProps> = ({
   return (
     <>
       <div className={containerClasses}>
-        {/* 1. Imagen a la izquierda */}
+        {/* 1. Img align to left */}
         <div className="flex-shrink-0 w-24 h-32 bg-gray-200 rounded-md" />
 
-        {/* 2. Contenido principal */}
+        {/* 2. Main content */}
         <div className="flex-1 ml-6 flex">
-          {/* Columna izquierda con nombre y control de cantidad */}
+          {/* Column left with name and quantity control */}
           <div className="flex-1">
-            {/* Título */}
+            {/* Title */}
             <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
             
-            {/* Control de cantidad */}
+            {/* Quantity Control */}
             <div className="mt-12">
               <div className="flex border-2 border-gray-300 rounded w-24">
                 <input
@@ -74,9 +74,9 @@ const CartItem: React.FC<CartItemProps> = ({
             </div>
           </div>
 
-          {/* Columna derecha con precio y botón eliminar */}
+          {/* Column right with price and delete button */}
           <div className="flex flex-col items-end justify-between">
-            {/* Botón eliminar */}        
+            {/* Delete Button */}        
             <button
               onClick={onRemove}
               className="p-2 bg-gray-100 hover:bg-gray-300 rounded-sm transition-colors"
@@ -84,7 +84,7 @@ const CartItem: React.FC<CartItemProps> = ({
               <FiTrash2 className="w-5 h-5 text-gray-500" />
             </button>
 
-            {/* Precio */}
+            {/* Price */}
             <div className="text-right">
               {hasDiscount && (
                 <div className="flex items-baseline justify-end space-x-2">
@@ -111,7 +111,7 @@ const CartItem: React.FC<CartItemProps> = ({
         </div>
       </div>
       
-      {/* Separador, excepto para el último elemento */}
+      {/* Separator, except for the last element */}
       {!isLast && <div className="h-px bg-gray-200 mx-4" />}
     </>
   );

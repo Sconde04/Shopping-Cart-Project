@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         Free shipping on all orders over $200! For a limited time only.
       </div>
       <div className="relative flex items-center h-34 px-12 py-12 border-b-2 border-gray-200">
-        {/* Back to Shop link - only visible on cart page */}
+        {/* Back to Shop link, only visible on cart page */}
         {isCartPage && (
           <Link
             to="/"

@@ -24,13 +24,13 @@ const ShoppingCartPage: React.FC = () => {
     setItems(items.filter((_, i) => i !== idx));
   };
 
-  // Calcular el número total de items
+  // Calculate total number of items
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
   
-  // Calcular el precio total sin descuentos (subtotal)
+  // Calculate total prices without discount (subtotal)
   const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
   
-  // Calcular el precio total con descuentos aplicados
+  // Calculate total price with discounts applied
   const totalPrice = items.reduce((sum, i) => sum + i.discountedPrice * i.quantity, 0);
 
   return (

@@ -1,5 +1,5 @@
 type ButtonProps = {
-  label: React.ReactNode; // Ahora acepta ReactNode para permitir iconos y texto
+  label: React.ReactNode; // Use ReactNode to allow icons and text
   onClick: () => void;
   className?: string;
 };
