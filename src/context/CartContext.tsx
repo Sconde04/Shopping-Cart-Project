@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {
   createContext,
   useContext,
@@ -14,11 +13,6 @@ import {
   CartItem,
 } from "../services/api";
 import { useAlert } from "./AlertContext";
-=======
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { addToCart, removeFromCart, updateCartItem, getCart, CartItem } from '../services/api';
-import { useAlert } from './AlertContext';
->>>>>>> e7286c1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
 
 interface CartContextType {
   cartItems: CartItem[];
