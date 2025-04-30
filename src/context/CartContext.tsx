@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {
   createContext,
   useContext,
@@ -14,11 +13,6 @@ import {
   CartItem,
 } from "../services/api";
 import { useAlert } from "./AlertContext";
-=======
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { addToCart, removeFromCart, updateCartItem, getCart, CartItem } from '../services/api';
-import { useAlert } from './AlertContext';
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -85,39 +79,26 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   // Function to limit the number of tickets that can be purchased
   const limitMoreTickets = (quantity: number, eventId: string): boolean => {
-<<<<<<< HEAD
     const currentEventTickets =
       cartItems.find((item) => item.id === eventId)?.quantity || 0;
-=======
-    const currentEventTickets = cartItems.find(item => item.id === eventId)?.quantity || 0;
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
     return currentEventTickets + quantity <= maxTicketsPurchase;
   };
 
   // Add item to cart
   const addItem = async (item: CartItem) => {
     if (!limitMoreTickets(item.quantity, item.id)) {
-<<<<<<< HEAD
       showAlert(
         `Cannot add more tickets for this event. Maximum limit is ${maxTicketsPurchase} tickets per event.`,
         "error"
       );
-=======
-      showAlert(`Cannot add more tickets for this event. Maximum limit is ${maxTicketsPurchase} tickets per event.`, 'error');
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
       return;
     }
 
     setIsLoading(true);
     try {
       await addToCart(item);
-<<<<<<< HEAD
       const existingItemIndex = cartItems.findIndex((i) => i.id === item.id);
 
-=======
-      const existingItemIndex = cartItems.findIndex(i => i.id === item.id);
-      
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
       // Verify if the item already exists in the cart to avoid duplicates
       if (existingItemIndex >= 0) {
         const updatedItems = [...cartItems];
@@ -127,13 +108,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         setCartItems([...cartItems, item]);
       }
     } catch (err) {
-<<<<<<< HEAD
       setError(
         "Failed to add item to cart. Please reload the page and try again."
       );
-=======
-      setError('Failed to add item to cart. Please reload the page and try again.');
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -145,17 +122,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setIsLoading(true);
     try {
       await removeFromCart(id);
-<<<<<<< HEAD
       setCartItems(cartItems.filter((item) => item.id !== id));
     } catch (err) {
       setError(
         "Failed to remove item from cart. Please reload the page and try again."
       );
-=======
-      setCartItems(cartItems.filter(item => item.id !== id));
-    } catch (err) {
-      setError('Failed to remove item from cart. Please reload the page and try again.');
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -166,7 +137,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const updateItem = async (id: string, quantity: number) => {
     if (quantity < 1) return;
 
-<<<<<<< HEAD
     const currentItem = cartItems.find((item) => item.id === id);
     if (currentItem) {
       if (quantity > maxTicketsPurchase) {
@@ -178,16 +148,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       }
     }
 
-=======
-    const currentItem = cartItems.find(item => item.id === id);
-    if (currentItem) {
-      if (quantity > maxTicketsPurchase) {
-        showAlert(`Cannot update quantity. Maximum limit is ${maxTicketsPurchase} tickets per event.`, 'error');
-        return;
-      }
-    }
-    
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
     setIsLoading(true);
     try {
       await updateCartItem(id, quantity);
@@ -195,11 +155,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         cartItems.map((item) => (item.id === id ? { ...item, quantity } : item))
       );
     } catch (err) {
-<<<<<<< HEAD
       showAlert("Failed to update cart. Please try again.", "error");
-=======
-      showAlert('Failed to update cart. Please try again.', 'error');
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -218,11 +174,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         updateItem,
         isLoading,
         error,
-<<<<<<< HEAD
         limitMoreTickets,
-=======
-        limitMoreTickets
->>>>>>> ff4dde1 (Implemented validations to ensure that no more than 6 tickets are purchased per concert and added an alert to warn the user that this limit cannot be exceeded.)
       }}
     >
       {children}
