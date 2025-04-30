@@ -8,6 +8,11 @@ type CartItemProps = {
   price: number;
   discountedPrice: number;
   quantity: number;
+  image?: string;
+  description?: string;
+  place?: string;
+  date?: string;
+  time?: string;
   onIncrease: () => void;
   onDecrease: () => void;
   onRemove: () => void;
@@ -20,6 +25,11 @@ const CartItem: React.FC<CartItemProps> = ({
   price,
   discountedPrice,
   quantity,
+  image,
+  description,
+  place,
+  date,
+  time,
   onIncrease,
   onDecrease,
   onRemove,
@@ -38,7 +48,9 @@ const CartItem: React.FC<CartItemProps> = ({
     <>
       <div className={containerClasses}>
         {/* 1. Img align to left */}
-        <div className="flex-shrink-0 w-24 h-32 bg-gray-200 rounded-md" />
+        <div className="flex-shrink-0 w-24 h-32 bg-gray-200 rounded-md overflow-hidden">
+          {image && <img src={image} alt={name} className="w-full h-full object-cover" />}
+        </div>
 
         {/* 2. Main content */}
         <div className="flex-1 ml-6 flex">
@@ -47,8 +59,13 @@ const CartItem: React.FC<CartItemProps> = ({
             {/* Title */}
             <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
             
+            {/* Additional info */}
+            {description && (
+              <p className="text-lg font-bold text-gray-600 mb-16 line-clamp-1">{description}</p>
+            )}
+            
             {/* Quantity Control */}
-            <div className="mt-12">
+            <div className="mt-4">
               <div className="flex border-2 border-gray-300 rounded w-24">
                 <input
                   type="text"
