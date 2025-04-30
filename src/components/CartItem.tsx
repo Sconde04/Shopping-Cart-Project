@@ -106,16 +106,16 @@ const CartItem: React.FC<CartItemProps> = ({
               {hasDiscount && (
                 <div className="flex items-baseline justify-end space-x-2">
                   <span className="text-lg text-gray-500 line-through">
-                    ${price.toFixed(0)}
+                    ${price.toFixed(2)}
                   </span>
                   <span className="text-xl font-bold text-black">
-                    ${discountedPrice.toFixed(0)}
+                    ${discountedPrice.toFixed(2)}
                   </span>
                 </div>
               )}
               {!hasDiscount && discountedPrice && (
                 <span className="text-xl font-bold text-black">
-                  ${discountedPrice.toFixed(0)}
+                  ${discountedPrice.toFixed(2)}
                 </span>
               )}
               {hasDiscount && (
