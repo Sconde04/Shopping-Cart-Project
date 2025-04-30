@@ -1,7 +1,7 @@
 // src/components/OrderList.tsx
-import React from 'react';
-import CartItem from './CartItem';
-import { CartItem as CartItemType } from '../services/api';
+import React from "react";
+import CartItem from "./CartItem";
+import { CartItem as CartItemType } from "../services/api";
 
 type OrderListProps = {
   items: CartItemType[];
