@@ -24,7 +24,7 @@ const Events: React.FC = () => {
     setVisibleEvents(prev => prev + 5);
   };
 
-  if (error) {
+  if (error && events.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-red-500">{error}</p>
