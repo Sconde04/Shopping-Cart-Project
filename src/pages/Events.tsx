@@ -51,7 +51,7 @@ const Events: React.FC = () => {
         </div>
 
         {/* Progress & Load More */}
-        <div className="flex flex-col items-center mt-8">
+        <div className="flex flex-col items-center mt-14 mb-8">
           {/* Progress Bar */}
           <div className="flex justify-center w-full mb-6">
             <div className="w-80 bg-gray-400 rounded-full h-2">
