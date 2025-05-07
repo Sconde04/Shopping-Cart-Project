@@ -25,46 +25,48 @@ const ShoppingCartPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-8 mt-6">
-      <h1 className="flex justify-center text-3xl font-bold mb-2">Shopping Cart</h1>
-      <p className="flex justify-center text-gray-600 mb-14">
-        Shipping charges and discount codes are confirmed at checkout.
-      </p>
-      
-      {isLoading && (
-        <div className="flex justify-center items-center h-40">
-          <p className="text-gray-500">Loading cart...</p>
-        </div>
-      )}
-      
-      {error && (
-        <div className="flex justify-center items-center h-40">
-          <p className="text-red-500">{error}</p>
-        </div>
-      )}
-      
-      {!isLoading && !error && cartItems.length === 0 && (
-        <div className="flex flex-col justify-center items-center h-40">
-          <p className="text-gray-500 text-xl mb-4">Your cart is empty</p>
-          <a href="/" className="text-blue-600 hover:underline">Continue shopping</a>
-        </div>
-      )}
-      
-      {!isLoading && !error && cartItems.length > 0 && (
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <OrderList
-              items={cartItems}
-              onIncrease={handleIncrease}
-              onDecrease={handleDecrease}
-              onRemove={handleRemove}
-            />
+    <div className="bg-gray-100 min-h-screen">
+      <div className="container mx-auto p-8">
+        <h1 className="flex justify-center text-3xl font-bold mb-2 mt-4">Shopping Cart</h1>
+        <p className="flex justify-center text-gray-600 mb-14">
+          Shipping charges and discount codes are confirmed at checkout.
+        </p>
+        
+        {isLoading && (
+          <div className="flex justify-center items-center h-40">
+            <p className="text-gray-500">Loading cart...</p>
           </div>
-          <div>
-            <Summary totalItems={totalItems} subtotal={subtotal} totalPrice={totalPrice} />
+        )}
+        
+        {error && (
+          <div className="flex justify-center items-center h-40">
+            <p className="text-red-500">{error}</p>
           </div>
-        </div>
-      )}
+        )}
+        
+        {!isLoading && !error && cartItems.length === 0 && (
+          <div className="flex flex-col justify-center items-center h-40">
+            <p className="text-gray-500 text-xl mb-4">Your cart is empty</p>
+            <a href="/" className="text-blue-600 hover:underline">Continue shopping</a>
+          </div>
+        )}
+        
+        {!isLoading && !error && cartItems.length > 0 && (
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <OrderList
+                items={cartItems}
+                onIncrease={handleIncrease}
+                onDecrease={handleDecrease}
+                onRemove={handleRemove}
+              />
+            </div>
+            <div>
+              <Summary totalItems={totalItems} subtotal={subtotal} totalPrice={totalPrice} />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
