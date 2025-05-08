@@ -22,11 +22,11 @@ const Events: React.FC = () => {
   // Fetch events from backend API
   useEffect(() => {
     fetchEvents()
-      .then(data => {
+      .then((data) => {
         setEvents(data);
         setFilteredEvents(data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         setError("Failed to load events. Please try again later.");
       });
@@ -38,7 +38,7 @@ const Events: React.FC = () => {
   }, [filterDate, filterPlace, minPrice, maxPrice]);
 
   const loadMoreEvents = () => {
-    setVisibleEvents(prev => prev + 5);
+    setVisibleEvents((prev) => prev + 5);
   };
 
   if (error && events.length === 0) {
@@ -55,10 +55,11 @@ const Events: React.FC = () => {
       <div className="mx-10 flex justify-between items-center text-lg font-semibold pt-8">
         <div>{filteredEvents.length} Products</div>
         <button
-          onClick={() => setShowFilters(v => !v)}
+          onClick={() => setShowFilters((v) => !v)}
           className="flex items-center gap-2 underline"
         >
-          Show {Math.min(visibleEvents, filteredEvents.length)} products <FaChevronDown />
+          Show {Math.min(visibleEvents, filteredEvents.length)} products{" "}
+          <FaChevronDown />
         </button>
       </div>
 
@@ -80,7 +81,7 @@ const Events: React.FC = () => {
       <div className="p-8 bg-white">
         {/* Events grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-          {filteredEvents.slice(0, visibleEvents).map(event => (
+          {filteredEvents.slice(0, visibleEvents).map((event) => (
             <EventCard key={event.id} {...event} />
           ))}
         </div>
@@ -89,14 +90,20 @@ const Events: React.FC = () => {
         <div className="flex flex-col items-center mt-14 mb-8">
           {/* Dynamic counter of visible events from total events */}
           <div className="text-lg font-semibold mb-2">
-            Showing {Math.min(visibleEvents, filteredEvents.length)} of {filteredEvents.length} events
+            Showing {visibleEvents} of {filteredEvents.length} events
           </div>
           {/* Progress Bar */}
           <div className="flex justify-center w-full mb-6">
             <div className="w-60 bg-gray-400 rounded-full h-2">
               <div
                 className="bg-[rgb(60,60,60)] h-2 rounded-full"
-                style={{ width: `${(Math.min(visibleEvents, filteredEvents.length) / filteredEvents.length) * 100}%` }}
+                style={{
+                  width: `${
+                    (Math.min(visibleEvents, filteredEvents.length) /
+                      filteredEvents.length) *
+                    100
+                  }%`,
+                }}
               />
             </div>
           </div>
