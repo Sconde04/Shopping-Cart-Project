@@ -12,10 +12,21 @@ vi.mock('../../services/api', () => ({
 
 // Simple EventCard mock
 vi.mock('../../components/EventCard', () => ({
-  default: ({ title, onAddToCart }: { title: string; onAddToCart?: () => void }) => (
+  default: ({ title, price, date, time, place, onAddToCart }: { 
+    title: string; 
+    price: number;
+    date: string;
+    time: string;
+    place: string;
+    onAddToCart?: () => void 
+  }) => (
     <div data-testid="event-card">
       <h3>{title}</h3>
-      <button onClick={onAddToCart} data-testid="add-to-cart">Add to Cart</button>
+      <p>${price}</p>
+      <p>{date}</p>
+      <p>{time}</p>
+      <p>{place}</p>
+      <button onClick={onAddToCart} data-testid="add-to-cart">ADD TO CART</button>
     </div>
   )
 }));
@@ -63,5 +74,23 @@ describe('This test should run the events page', () => {
   test('shows events correctly', async () => {
     render(<Events />);
     expect(await screen.findByText('Test Concert 1')).toBeInTheDocument();
+  });
+
+  test('displays event price correctly', async () => {
+    render(<Events />);
+    expect(await screen.findByText('$100')).toBeInTheDocument();
+  });
+
+  test('displays event date and time correctly', async () => {
+    render(<Events />);
+    const eventCard = await screen.findByTestId('event-card');
+    expect(eventCard).toHaveTextContent('2024-03-20');
+    expect(eventCard).toHaveTextContent('20:00');
+  });
+
+  test('displays event location correctly', async () => {
+    render(<Events />);
+    const eventCard = await screen.findByTestId('event-card');
+    expect(eventCard).toHaveTextContent('Test Place 1');
   });
 }); 
