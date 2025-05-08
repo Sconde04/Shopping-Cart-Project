@@ -141,6 +141,10 @@ const Events: React.FC = () => {
 
         {/* Progress & Load More */}
         <div className="flex flex-col items-center mt-14 mb-8">
+          {/* Dynamic counter of visible events from total events */}
+          <div className="text-lg font-semibold mb-2">
+            Showing {visibleEvents} of {filteredEvents.length} events
+          </div>
           {/* Progress Bar */}
           <div className="flex justify-center w-full mb-6">
             <div className="w-60 bg-gray-400 rounded-full h-2">
