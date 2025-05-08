@@ -1,18 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { addToCart, removeFromCart, updateCartItem, getCart } from '../services/api';
-
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  discountedPrice: number;
-  quantity: number;
-  image?: string;
-  description?: string;
-  place?: string;
-  date?: string;
-  time?: string;
-}
+import { addToCart, removeFromCart, updateCartItem, getCart, CartItem } from '../services/api';
 
 interface CartContextType {
   cartItems: CartItem[];
