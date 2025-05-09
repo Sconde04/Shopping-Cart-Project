@@ -11,9 +11,9 @@ const App: React.FC = () => {
   return (
     <CartProvider>
       <Router> {/* Environment all the application with the React Router */}
-        <div className="w-screen h-screen flex flex-col">
+        <div className="flex flex-col min-h-screen">
           <Header />
-          <main className="flex-1 bg-gray-100">
+          <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Events />} />
               <Route path="/cart" element={<ShoppingCartPage />} />

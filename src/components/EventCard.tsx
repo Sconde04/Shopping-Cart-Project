@@ -29,6 +29,9 @@ const EventCard: React.FC<EventProps> = ({
   const { addItem, isLoading } = useCart();
   const [isAdding, setIsAdding] = useState(false);
 
+  // Format date to DD-MM-YYYY
+  const formattedDate = date ? date.split('T')[0].split('-').reverse().join('-') : '';
+
   const handleAddToCart = async () => {
     setIsAdding(true);
     try {
@@ -59,9 +62,9 @@ const EventCard: React.FC<EventProps> = ({
         className="w-full h-48 object-cover rounded-lg mb-4"
       />
       <h2 className="text-xl font-semibold mb-2">{title}</h2>
-      <p className="text-sm text-gray-600 mb-4">{description}</p>
+      <p className="text-lg font-semibold text-gray-800 mb-4">{description}</p>
       <p className="text-sm text-gray-600 mb-3">{place}</p>
-      <p className="text-sm text-gray-600 mb-2">{date} - {time}</p>
+      <p className="text-sm text-gray-600 mb-4">{formattedDate}</p>
 
       <div className="flex items-center mt-auto">
         <span className="text-lg font-semibold text-black mr-3">
