@@ -1,56 +1,71 @@
 // src/pages/ShoppingCartPage.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import OrderList from '../components/OrderList';
 import Summary from '../components/Summary';
+import { useCart } from '../context/CartContext';
 
 const ShoppingCartPage: React.FC = () => {
-  const [items, setItems] = useState([
-    { name: 'Concert Name', price: 95, discountedPrice: 70, quantity: 1 },
-    { name: 'Product Name', price: 54, discountedPrice: 54, quantity: 2 },
-    { name: 'Product Name', price: 54, discountedPrice: 54, quantity: 2 },
-  ]);
+  const { cartItems, totalItems, subtotal, totalPrice, updateItem, removeItem, isLoading, error } = useCart();
 
   const handleIncrease = (idx: number) => {
-    const c = [...items];
-    c[idx].quantity++;
-    setItems(c);
+    const item = cartItems[idx];
+    updateItem(item.id, item.quantity + 1);
   };
+  
   const handleDecrease = (idx: number) => {
-    const c = [...items];
-    if (c[idx].quantity > 1) c[idx].quantity--;
-    setItems(c);
+    const item = cartItems[idx];
+    if (item.quantity > 1) {
+      updateItem(item.id, item.quantity - 1);
+    }
   };
+  
   const handleRemove = (idx: number) => {
-    setItems(items.filter((_, i) => i !== idx));
+    const item = cartItems[idx];
+    removeItem(item.id);
   };
-
-  // Calculate total number of items
-  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
-  
-  // Calculate total prices without discount (subtotal)
-  const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
-  
-  // Calculate total price with discounts applied
-  const totalPrice = items.reduce((sum, i) => sum + i.discountedPrice * i.quantity, 0);
 
   return (
-    <div className="container mx-auto p-8 mt-6">
-      <h1 className="flex justify-center text-3xl font-bold mb-2">Shopping Cart</h1>
-      <p className="flex justify-center text-gray-600 mb-14">
-        Shipping charges and discount codes are confirmed at checkout.
-      </p>
-      <div className="grid lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <OrderList
-            items={items}
-            onIncrease={handleIncrease}
-            onDecrease={handleDecrease}
-            onRemove={handleRemove}
-          />
-        </div>
-        <div>
-          <Summary totalItems={totalItems} subtotal={subtotal} totalPrice={totalPrice} />
-        </div>
+    <div className="bg-gray-100 min-h-screen">
+      <div className="container mx-auto p-8">
+        <h1 className="flex justify-center text-3xl font-bold mb-2 mt-4">Shopping Cart</h1>
+        <p className="flex justify-center text-gray-600 mb-14">
+          Shipping charges and discount codes are confirmed at checkout.
+        </p>
+        
+        {isLoading && (
+          <div className="flex justify-center items-center h-40">
+            <p className="text-gray-500">Loading cart...</p>
+          </div>
+        )}
+        
+        {error && (
+          <div className="flex justify-center items-center h-40">
+            <p className="text-red-500">{error}</p>
+          </div>
+        )}
+        
+        {!isLoading && !error && cartItems.length === 0 && (
+          <div className="flex flex-col justify-center items-center h-40">
+            <p className="text-gray-500 text-xl mb-4">Your cart is empty</p>
+            <a href="/" className="text-blue-600 hover:underline">Continue shopping</a>
+          </div>
+        )}
+        
+        {!isLoading && !error && cartItems.length > 0 && (
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <OrderList
+                items={cartItems}
+                onIncrease={handleIncrease}
+                onDecrease={handleDecrease}
+                onRemove={handleRemove}
+              />
+            </div>
+            <div>
+              <Summary totalItems={totalItems} subtotal={subtotal} totalPrice={totalPrice} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

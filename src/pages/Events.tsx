@@ -56,7 +56,7 @@ const Events: React.FC = () => {
     setVisibleEvents(prev => prev + 5);
   };
 
-  if (error) {
+  if (error && events.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-red-500">{error}</p>
@@ -140,10 +140,14 @@ const Events: React.FC = () => {
         </div>
 
         {/* Progress & Load More */}
-        <div className="flex flex-col items-center mt-8">
+        <div className="flex flex-col items-center mt-14 mb-8">
+          {/* Dynamic counter of visible events from total events */}
+          <div className="text-lg font-semibold mb-2">
+            Showing {visibleEvents} of {filteredEvents.length} events
+          </div>
           {/* Progress Bar */}
           <div className="flex justify-center w-full mb-6">
-            <div className="w-80 bg-gray-400 rounded-full h-2">
+            <div className="w-60 bg-gray-400 rounded-full h-2">
               <div
                 className="bg-[rgb(60,60,60)] h-2 rounded-full"
                 style={{ width: `${(visibleEvents / filteredEvents.length) * 100}%` }}
@@ -157,11 +161,11 @@ const Events: React.FC = () => {
               label={
                 <>
                   <FaChevronDown className="inline-block mr-2" />
-                  Show More
+                  SHOW MORE
                 </>
               }
               onClick={loadMoreEvents}
-              className="bg-[rgb(60,60,60)] w-full max-w-sm text-white text-lg font-semibold py-3 rounded-lg flex justify-center items-center"
+              className="bg-[rgb(60,60,60)] w-full max-w-sm text-white text-[16px] font-extrabold py-3 rounded-lg flex justify-center items-center mt-6"
             />
           )}
         </div>
