@@ -2,10 +2,12 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import CartIcon from "./CartIcon";
 import { FiArrowLeft } from 'react-icons/fi';
+import { useCart } from "../context/CartContext";
  
 const Header: React.FC = () => {
   const location = useLocation();
   const isCartPage = location.pathname === "/cart";
+  const { totalItems } = useCart();
   
   return (
     <header className="w-full">
@@ -32,10 +34,7 @@ const Header: React.FC = () => {
         {/* Cart icon aligned to the right */}
         {!isCartPage && (
           <div className="ml-auto relative">
-            <Link to="/cart"><CartIcon itemCount={0}/></Link>
-            <span className="absolute top-[-8px] right-[-8px] text-xs bg-[rgb(60,60,60)] text-white rounded-full px-1">
-              2
-            </span>
+            <Link to="/cart"><CartIcon itemCount={totalItems}/></Link>
           </div>
         )}
       </div>

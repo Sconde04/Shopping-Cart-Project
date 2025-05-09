@@ -1,14 +1,10 @@
 // src/components/OrderList.tsx
 import React from 'react';
 import CartItem from './CartItem';
+import { CartItem as CartItemType } from '../services/api';
 
 type OrderListProps = {
-  items: Array<{
-    name: string;
-    price: number;
-    discountedPrice: number;
-    quantity: number;
-  }>;
+  items: CartItemType[];
   onIncrease: (index: number) => void;
   onDecrease: (index: number) => void;
   onRemove: (index: number) => void;
@@ -25,11 +21,16 @@ const OrderList: React.FC<OrderListProps> = ({
     <div>
       {items.map((item, i) => (
         <CartItem
-          key={i}
+          key={item.id}
           name={item.name}
           price={item.price}
           discountedPrice={item.discountedPrice}
           quantity={item.quantity}
+          image={item.image}
+          description={item.description}
+          place={item.place}
+          date={item.date}
+          time={item.time}
           onIncrease={() => onIncrease(i)}
           onDecrease={() => onDecrease(i)}
           onRemove={() => onRemove(i)}
