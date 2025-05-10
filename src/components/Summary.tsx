@@ -23,10 +23,6 @@ const Summary: React.FC<SummaryProps> = ({ totalItems, subtotal, totalPrice }) =
         <span>${totalPrice.toFixed(2)}</span>
       </div>
     </div>
-
-    <button className="flex justify-center w-60 mx-auto bg-[rgb(60,60,60)] text-white text-sm font-semibold py-3 rounded-lg hover:bg-gray-800 transition">
-      GO TO CHECKOUT
-    </button>
   </div>
 );
 
