@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Events from './pages/Events';
 import ShoppingCartPage from './pages/ShoppingCartPage';
+import CheckoutPage from './pages/CheckoutPage';
 import { CartProvider } from './context/CartContext';
 
 const App: React.FC = () => {
@@ -17,6 +18,7 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<Events />} />
               <Route path="/cart" element={<ShoppingCartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
             </Routes>
           </main>
           <Footer />
