@@ -4,9 +4,11 @@ import EventCard from "../components/EventCard";
 import { Button } from "../components/Button";
 import { FaChevronDown } from "react-icons/fa";
 import { fetchEvents, Event } from "../services/api";
+import EventsFilter from "../components/EventsFilter";
 
 const Events: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [visibleEvents, setVisibleEvents] = useState(5);
   const [showFilters, setShowFilters] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,41 +18,24 @@ const Events: React.FC = () => {
   const [filterPlace, setFilterPlace] = useState<string>("");
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");
-  const places = Array.from(new Set(events.map(e => e.place)));
 
   // Fetch events from backend API
   useEffect(() => {
     fetchEvents()
-      .then(data => setEvents(data))
+      .then(data => {
+        setEvents(data);
+        setFilteredEvents(data);
+      })
       .catch(err => {
         console.error(err);
         setError("Failed to load events. Please try again later.");
       });
   }, []);
 
-  // Filter events based on selected filters
-  const filteredEvents = events.filter(e => {
-    // Date filter
-    if (filterDate && e.date !== filterDate) return false;
-
-    // Place filter
-    if (filterPlace && e.place !== filterPlace) return false;
-
-    // Price filter
-    const price = e.discount
-      ? e.price * (1 - e.discount / 100)
-      : e.price;
-    
-    // Check if minPrice isn´t empty
-    if (minPrice !== "" && price < Number(minPrice)) return false;
-
-    // Check if maxPrice isn´t empty
-    if (maxPrice !== "" && price > Number(maxPrice)) return false;
-
-    return true;
-  });
-    
-
+  // Reset visibleEvents when filters change to update the number of events show
+  useEffect(() => {
+    setVisibleEvents(5);
+  }, [filterDate, filterPlace, minPrice, maxPrice]);
 
   const loadMoreEvents = () => {
     setVisibleEvents(prev => prev + 5);
@@ -78,57 +63,18 @@ const Events: React.FC = () => {
       </div>
 
       {showFilters && (
-        <div className="mx-10 mb-6 p-4 bg-gray-100 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Date Filter */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Date</label>
-            <input
-              type="date"
-              value={filterDate}
-              onChange={e => setFilterDate(e.target.value)}
-              className="w-full px-2 py-1 rounded-md border"
-            />
-          </div>
-
-          {/* Place Filter */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Place</label>
-            <select
-              value={filterPlace}
-              onChange={e => setFilterPlace(e.target.value)}
-              className="w-full px-2 py-1 rounded-md border"
-            >
-              <option value="">All</option>
-              {places.map(p => (
-                <option key={p} value={p}>{p}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Price Filter */}
-          <div className="flex space-x-2">
-            <div className="flex-1">
-              <label className="block text-sm font-medium mb-1">Min Price</label>
-              <input
-                type="number"
-                value={minPrice}
-                onChange={e => setMinPrice(e.target.value)}
-                className="w-full px-2 py-1 rounded-md border"
-                placeholder="0"
-              />
-            </div>
-            <div className="flex-1">
-              <label className="block text-sm font-medium mb-1">Max Price</label>
-              <input
-                type="number"
-                value={maxPrice}
-                onChange={e => setMaxPrice(e.target.value)}
-                className="w-full px-2 py-1 rounded-md border"
-                placeholder="0"
-              />
-            </div>
-          </div>
-        </div>
+        <EventsFilter
+          events={events}
+          filterDate={filterDate}
+          setFilterDate={setFilterDate}
+          filterPlace={filterPlace}
+          setFilterPlace={setFilterPlace}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          onFilteredEvents={setFilteredEvents}
+        />
       )}
 
       <div className="p-8 bg-white">
@@ -143,14 +89,14 @@ const Events: React.FC = () => {
         <div className="flex flex-col items-center mt-14 mb-8">
           {/* Dynamic counter of visible events from total events */}
           <div className="text-lg font-semibold mb-2">
-            Showing {visibleEvents} of {filteredEvents.length} events
+            Showing {Math.min(visibleEvents, filteredEvents.length)} of {filteredEvents.length} events
           </div>
           {/* Progress Bar */}
           <div className="flex justify-center w-full mb-6">
             <div className="w-60 bg-gray-400 rounded-full h-2">
               <div
                 className="bg-[rgb(60,60,60)] h-2 rounded-full"
-                style={{ width: `${(visibleEvents / filteredEvents.length) * 100}%` }}
+                style={{ width: `${(Math.min(visibleEvents, filteredEvents.length) / filteredEvents.length) * 100}%` }}
               />
             </div>
           </div>
