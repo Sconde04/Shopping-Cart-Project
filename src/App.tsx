@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Events from "./pages/Events";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import { CartProvider } from "./context/CartContext";
+import { ThankYouPage } from "./pages/ThankYouPage";
 import { AlertProvider } from "./context/AlertContext";
 import { Alert } from "./components/Alert";
 
