@@ -19,7 +19,7 @@ export const ThankYouPage = () => {
 
                     <p >
                         You can visit My Account page at any time to check the status of your
-                        order. Or click here to <a href="#" className="text-gray-700 underline font-medium">print a copy of your receipt</a>
+                        order. Or click here to <a href="#" className="underline">print a copy of your receipt</a>
                     </p>
 
                     <div className="mt-10">
