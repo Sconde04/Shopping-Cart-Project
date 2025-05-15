@@ -13,7 +13,7 @@ const BuyerInfoCard: React.FC = () => {
           <span className="text-lg font-semibold text-gray-800">John Doe</span>
         </div>
         <button
-          className="flex items-center text-gray-600 hover:text-blue-600 text-sm mr-6"
+          className="flex items-center text-gray-600 hover:text-blue-600 text-sm mr-6 underline"
           type="button"
         >
           <FiEdit2 className="mr-1" />
