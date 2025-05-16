@@ -3,6 +3,7 @@ import React from 'react';
 import OrderList from '../components/OrderList';
 import Summary from '../components/Summary';
 import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 const ShoppingCartPage: React.FC = () => {
   const { cartItems, totalItems, subtotal, totalPrice, updateItem, removeItem, isLoading, error } = useCart();
@@ -63,6 +64,11 @@ const ShoppingCartPage: React.FC = () => {
             </div>
             <div>
               <Summary totalItems={totalItems} subtotal={subtotal} totalPrice={totalPrice} />
+              <Link to="/checkout">
+                <button className="flex justify-center w-60 mx-auto mt-4 bg-[rgb(60,60,60)] text-white text-sm font-semibold py-3 rounded-lg hover:bg-gray-800 transition">
+                  GO TO CHECKOUT
+                </button>
+              </Link>
             </div>
           </div>
         )}

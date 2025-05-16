@@ -7,6 +7,7 @@ import { useCart } from "../context/CartContext";
 const Header: React.FC = () => {
   const location = useLocation();
   const isCartPage = location.pathname === "/cart";
+  const isCheckoutPage = location.pathname === "/checkout";
   const { totalItems } = useCart();
   
   return (
@@ -16,7 +17,7 @@ const Header: React.FC = () => {
       </div>
       <div className="relative flex items-center h-34 px-12 py-12 border-b-2 border-gray-200">
         {/* Back to Shop link, only visible on cart page */}
-        {isCartPage && (
+        {(isCartPage || isCheckoutPage) && (
           <Link
             to="/"
             className="absolute left-24 bottom-4 flex items-center text-gray-700 hover:text-gray-900"
@@ -32,7 +33,7 @@ const Header: React.FC = () => {
         </h1>
 
         {/* Cart icon aligned to the right */}
-        {!isCartPage && (
+        {!isCartPage && !isCheckoutPage && (
           <div className="ml-auto relative">
             <Link to="/cart"><CartIcon itemCount={totalItems}/></Link>
           </div>
