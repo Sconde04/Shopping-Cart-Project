@@ -1,5 +1,4 @@
 // src/App.tsx
-<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -35,34 +34,6 @@ const App: React.FC = () => {
         </Router>
       </CartProvider>
     </AlertProvider>
-=======
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Events from './pages/Events';
-import ShoppingCartPage from './pages/ShoppingCartPage';
-import { CartProvider } from './context/CartContext';
-import { ThankYouPage } from './pages/ThankYouPage';
-
-const App: React.FC = () => {
-  return (
-    <CartProvider>
-      <Router> {/* Environment all the application with the React Router */}
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Events />} />
-              <Route path="/cart" element={<ShoppingCartPage />} />
-              <Route path ="/ty" element={<ThankYouPage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </CartProvider>
->>>>>>> 2940e98 (Display Thank you page)
   );
 };
 
