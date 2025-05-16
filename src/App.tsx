@@ -7,6 +7,7 @@ import Events from './pages/Events';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import { CartProvider } from './context/CartContext';
 import { ThankYouPage } from './pages/ThankYouPage';
+import { Page404 } from './pages/Page404';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Events />} />
               <Route path="/cart" element={<ShoppingCartPage />} />
               <Route path ="/ty" element={<ThankYouPage />} />
+              <Route path="*" element={<Page404 />} />
             </Routes>
           </main>
           <Footer />
