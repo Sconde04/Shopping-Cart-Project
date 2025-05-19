@@ -1,5 +1,6 @@
-import React from 'react';
-import { Event } from '../services/api';
+// src/components/EventsFilter.tsx
+import React, { useMemo, useEffect } from "react";
+import { Event } from "../services/api";
 
 interface EventsFilterProps {
   events: Event[];
@@ -11,7 +12,7 @@ interface EventsFilterProps {
   setMinPrice: (price: string) => void;
   maxPrice: string;
   setMaxPrice: (price: string) => void;
-  onFilteredEvents: (filteredEvents: Event[]) => void;
+  onFilteredEvents: (filtered: Event[]) => void;
 }
 
 const EventsFilter: React.FC<EventsFilterProps> = ({
@@ -26,33 +27,37 @@ const EventsFilter: React.FC<EventsFilterProps> = ({
   setMaxPrice,
   onFilteredEvents,
 }) => {
-  // Get unique places from events
-  const places = Array.from(new Set(events.map(e => e.place)));
+  // Memorize the places to show in the filter
+  const places = useMemo(
+    () => Array.from(new Set(events.map((e) => e.place))),
+    [events]
+  );
 
-  // Filter events based on selected filters
-  const filteredEvents = events.filter(e => {
-    // Date filter
-    if (filterDate && e.date !== filterDate) return false;
+  // useMemo to memorized the state of the filters
+  const filteredEvents = useMemo(() => {
+    return events.filter((e) => {
+      // Date filer
+      if (filterDate && e.date !== filterDate) return false;
 
-    // Place filter
-    if (filterPlace && e.place !== filterPlace) return false;
+      // Place filter
+      if (filterPlace && e.place !== filterPlace) return false;
 
-    // Price filter
-    const price = e.discount
-      ? e.price * (1 - e.discount / 100)
-      : e.price;
+      // Price filter
+      const price = e.discount
+        ? e.price * (1 - e.discount / 100)
+        : e.price;
     
-    // Check if minPrice isn´t empty
-    if (minPrice !== "" && price < Number(minPrice)) return false;
+      // Check if minPrice isn´t empty
+      if (minPrice !== "" && price < Number(minPrice)) return false;
 
-    // Check if maxPrice isn´t empty
-    if (maxPrice !== "" && price > Number(maxPrice)) return false;
+      // Check if maxPrice isn´t empty
+      if (maxPrice !== "" && price > Number(maxPrice)) return false;
+      return true;
+    });
+  }, [events, filterDate, filterPlace, minPrice, maxPrice]);
 
-    return true;
-  });
-
-  // Update filteredEvents when filters change
-  React.useEffect(() => {
+  // Update filteredEvents when change
+  useEffect(() => {
     onFilteredEvents(filteredEvents);
   }, [filteredEvents, onFilteredEvents]);
 
@@ -64,7 +69,7 @@ const EventsFilter: React.FC<EventsFilterProps> = ({
         <input
           type="date"
           value={filterDate}
-          onChange={e => setFilterDate(e.target.value)}
+          onChange={(e) => setFilterDate(e.target.value)}
           className="w-full px-2 py-1 rounded-md border"
         />
       </div>
@@ -74,12 +79,14 @@ const EventsFilter: React.FC<EventsFilterProps> = ({
         <label className="block text-sm font-medium mb-1">Place</label>
         <select
           value={filterPlace}
-          onChange={e => setFilterPlace(e.target.value)}
+          onChange={(e) => setFilterPlace(e.target.value)}
           className="w-full px-2 py-1 rounded-md border"
         >
           <option value="">All</option>
-          {places.map(p => (
-            <option key={p} value={p}>{p}</option>
+          {places.map((p) => (
+            <option key={p} value={p}>
+              {p}
+            </option>
           ))}
         </select>
       </div>
@@ -91,7 +98,7 @@ const EventsFilter: React.FC<EventsFilterProps> = ({
           <input
             type="number"
             value={minPrice}
-            onChange={e => setMinPrice(e.target.value)}
+            onChange={(e) => setMinPrice(e.target.value)}
             className="w-full px-2 py-1 rounded-md border"
             placeholder="0"
           />
@@ -101,7 +108,7 @@ const EventsFilter: React.FC<EventsFilterProps> = ({
           <input
             type="number"
             value={maxPrice}
-            onChange={e => setMaxPrice(e.target.value)}
+            onChange={(e) => setMaxPrice(e.target.value)}
             className="w-full px-2 py-1 rounded-md border"
             placeholder="0"
           />
