@@ -1,6 +1,6 @@
 // src/components/EventsFilter.tsx
 import React, { useMemo, useEffect } from "react";
-import { Event } from "../services/api";
+import { Event, fetchFilteredEvents } from "../services/api";
 
 interface EventsFilterProps {
   events: Event[];
@@ -33,33 +33,33 @@ const EventsFilter: React.FC<EventsFilterProps> = ({
     [events]
   );
 
-  // useMemo to memorized the state of the filters
-  const filteredEvents = useMemo(() => {
-    return events.filter((e) => {
-      // Date filer
-      if (filterDate && e.date !== filterDate) return false;
-
-      // Place filter
-      if (filterPlace && e.place !== filterPlace) return false;
-
-      // Price filter
-      const price = e.discount
-        ? e.price * (1 - e.discount / 100)
-        : e.price;
-    
-      // Check if minPrice isn´t empty
-      if (minPrice !== "" && price < Number(minPrice)) return false;
-
-      // Check if maxPrice isn´t empty
-      if (maxPrice !== "" && price > Number(maxPrice)) return false;
-      return true;
-    });
-  }, [events, filterDate, filterPlace, minPrice, maxPrice]);
-
-  // Update filteredEvents when change
+  // Fetch filtered events when filters change
   useEffect(() => {
-    onFilteredEvents(filteredEvents);
-  }, [filteredEvents, onFilteredEvents]);
+    const fetchEvents = async () => {
+      try {
+        const params: {
+          minPrice?: number;
+          maxPrice?: number;
+          date?: string;
+          place?: string;
+        } = {};
+
+        if (minPrice) params.minPrice = Number(minPrice);
+        if (maxPrice) params.maxPrice = Number(maxPrice);
+        if (filterDate) params.date = filterDate;
+        if (filterPlace) params.place = filterPlace;
+
+        const filteredEvents = await fetchFilteredEvents(params);
+        onFilteredEvents(filteredEvents);
+      } catch (error) {
+        console.error('Error fetching filtered events:', error);
+        // En caso de error mostrremos todos los events para no dejar la pagina vacia
+        onFilteredEvents(events);
+      }
+    };
+
+    fetchEvents();
+  }, [events, filterDate, filterPlace, minPrice, maxPrice, onFilteredEvents]);
 
   return (
     <div className="mx-10 mb-6 p-4 bg-gray-100 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-4">
