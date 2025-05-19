@@ -1,5 +1,18 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { addToCart, removeFromCart, updateCartItem, getCart, CartItem } from '../services/api';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import {
+  addToCart,
+  removeFromCart,
+  updateCartItem,
+  getCart,
+  CartItem,
+} from "../services/api";
+import { useAlert } from "./AlertContext";
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -11,14 +24,16 @@ interface CartContextType {
   updateItem: (id: string, quantity: number) => Promise<void>;
   isLoading: boolean;
   error: string | null;
+  limitMoreTickets: (quantity: number, eventId: string) => boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
+const maxTicketsPurchase = 6;
 
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 };
@@ -31,13 +46,20 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { showAlert } = useAlert();
 
   // Calculate totals
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.discountedPrice * item.quantity, 0);
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.discountedPrice * item.quantity,
+    0
+  );
 
-  // Load cart from API on mount
+  // Load cart from API
   useEffect(() => {
     const fetchCart = async () => {
       setIsLoading(true);
@@ -45,7 +67,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         const data = await getCart();
         setCartItems(data);
       } catch (err) {
-        setError('Failed to load cart. Please try again.');
+        setError("Failed to load cart. Please try again.");
         console.error(err);
       } finally {
         setIsLoading(false);
@@ -55,25 +77,40 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     fetchCart();
   }, []);
 
+  // Function to limit the number of tickets that can be purchased
+  const limitMoreTickets = (quantity: number, eventId: string): boolean => {
+    const currentEventTickets =
+      cartItems.find((item) => item.id === eventId)?.quantity || 0;
+    return currentEventTickets + quantity <= maxTicketsPurchase;
+  };
+
   // Add item to cart
   const addItem = async (item: CartItem) => {
+    if (!limitMoreTickets(item.quantity, item.id)) {
+      showAlert(
+        `Cannot add more tickets for this event. Maximum limit is ${maxTicketsPurchase} tickets per event.`,
+        "error"
+      );
+      return;
+    }
+
     setIsLoading(true);
     try {
       await addToCart(item);
-      // Optimistic update
-      const existingItemIndex = cartItems.findIndex(i => i.id === item.id);
-      
+      const existingItemIndex = cartItems.findIndex((i) => i.id === item.id);
+
+      // Verify if the item already exists in the cart to avoid duplicates
       if (existingItemIndex >= 0) {
-        // If item exists, update quantity
         const updatedItems = [...cartItems];
         updatedItems[existingItemIndex].quantity += item.quantity;
         setCartItems(updatedItems);
       } else {
-        // If new item, add to cart
         setCartItems([...cartItems, item]);
       }
     } catch (err) {
-      setError('Failed to add item to cart. Please try again.');
+      setError(
+        "Failed to add item to cart. Please reload the page and try again."
+      );
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -85,10 +122,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setIsLoading(true);
     try {
       await removeFromCart(id);
-      // Optimistic update
-      setCartItems(cartItems.filter(item => item.id !== id));
+      setCartItems(cartItems.filter((item) => item.id !== id));
     } catch (err) {
-      setError('Failed to remove item from cart. Please try again.');
+      setError(
+        "Failed to remove item from cart. Please reload the page and try again."
+      );
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -98,18 +136,26 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   // Update item quantity
   const updateItem = async (id: string, quantity: number) => {
     if (quantity < 1) return;
-    
+
+    const currentItem = cartItems.find((item) => item.id === id);
+    if (currentItem) {
+      if (quantity > maxTicketsPurchase) {
+        showAlert(
+          `Cannot update quantity. Maximum limit is ${maxTicketsPurchase} tickets per event.`,
+          "error"
+        );
+        return;
+      }
+    }
+
     setIsLoading(true);
     try {
       await updateCartItem(id, quantity);
-      // Optimistic update
       setCartItems(
-        cartItems.map(item => 
-          item.id === id ? { ...item, quantity } : item
-        )
+        cartItems.map((item) => (item.id === id ? { ...item, quantity } : item))
       );
     } catch (err) {
-      setError('Failed to update cart. Please try again.');
+      showAlert("Failed to update cart. Please try again.", "error");
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -127,10 +173,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         removeItem,
         updateItem,
         isLoading,
-        error
+        error,
+        limitMoreTickets,
       }}
     >
       {children}
     </CartContext.Provider>
   );
-}; 
+};
