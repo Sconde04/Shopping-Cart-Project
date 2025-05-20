@@ -86,7 +86,7 @@ const EventCard: React.FC<EventProps> = ({
 
       {/* Add to cart button */}
       <button
-        className="w-full mt-4 py-2 px-4 bg-[rgb(60,60,60)] text-white text-sm font-semibold rounded-xl hover:bg-black transition flex items-center justify-center relative"
+        className="w-full cursor-pointer mt-4 py-2 px-4 bg-[rgb(60,60,60)] text-white text-sm font-semibold rounded-xl hover:bg-black transition flex items-center justify-center relative"
         onClick={handleAddToCart}
         disabled={isAdding || isLoading}
       >
