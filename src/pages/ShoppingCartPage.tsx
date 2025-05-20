@@ -2,6 +2,7 @@
 import React from "react";
 import OrderList from "../components/OrderList";
 import Summary from "../components/Summary";
+import SafeEasySection from "../components/SafeEasySection";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
@@ -35,7 +36,7 @@ const ShoppingCartPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100">
       <div className="container mx-auto p-8">
         <h1 className="flex justify-center text-3xl font-bold mb-2 mt-4">
           Shopping Cart
@@ -74,6 +75,9 @@ const ShoppingCartPage: React.FC = () => {
                 onDecrease={handleDecrease}
                 onRemove={handleRemove}
               />
+              <div className="mt-8">
+                <SafeEasySection />
+              </div>
             </div>
             <div>
               <Summary
