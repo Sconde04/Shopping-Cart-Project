@@ -71,9 +71,9 @@ const ShoppingCartPage: React.FC = () => {
                 onDecrease={handleDecrease}
                 onRemove={handleRemove}
               />
-            </div>
-            <div className="mt-8">
-              <SafeEasySection />
+              <div className="mt-8">
+                <SafeEasySection />
+              </div>
             </div>
             <div>
               <Summary
