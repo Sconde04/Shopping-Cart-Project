@@ -30,7 +30,9 @@ const EventCard: React.FC<EventProps> = ({
   const [isAdding, setIsAdding] = useState(false);
 
   // Format date to DD-MM-YYYY
-  const formattedDate = date ? date.split('T')[0].split('-').reverse().join('-') : '';
+  const formattedDate = date
+    ? date.split("T")[0].split("-").reverse().join("-")
+    : "";
 
   const handleAddToCart = async () => {
     setIsAdding(true);
@@ -45,10 +47,10 @@ const EventCard: React.FC<EventProps> = ({
         description,
         place,
         date,
-        time
+        time,
       });
     } catch (error) {
-      console.error('Failed to add item to cart:', error);
+      console.error("Failed to add item to cart:", error);
     } finally {
       setIsAdding(false);
     }
@@ -83,16 +85,17 @@ const EventCard: React.FC<EventProps> = ({
       </div>
 
       {/* Add to cart button */}
-      <button 
+      <button
         className="w-full mt-4 py-2 px-4 bg-[rgb(60,60,60)] text-white text-sm font-semibold rounded-xl hover:bg-black transition flex items-center justify-center relative"
         onClick={handleAddToCart}
         disabled={isAdding || isLoading}
       >
         {/* Icon of cart align to right */}
-        <CartIcon className="w-6 h-6 absolute left-4" /> {/* Use absolute to position it */}
+        <CartIcon className="w-6 h-6 absolute left-4" />{" "}
+        {/* Use absolute to position it */}
         {/* Text center */}
         <span className="text-center w-full">
-          {isAdding ? 'ADDING...' : 'ADD TO CART'}
+          {isAdding ? "ADDING..." : "ADD TO CART"}
         </span>
       </button>
     </div>
