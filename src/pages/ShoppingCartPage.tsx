@@ -2,6 +2,7 @@
 import React from "react";
 import OrderList from "../components/OrderList";
 import Summary from "../components/Summary";
+import SafeEasySection from "../components/SafeEasySection";
 import { useCart } from "../context/CartContext";
 
 const ShoppingCartPage: React.FC = () => {
@@ -64,25 +65,26 @@ const ShoppingCartPage: React.FC = () => {
           </div>
         )}
 
-        {!isLoading && !error && cartItems.length > 0 && (
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <OrderList
-                items={cartItems}
-                onIncrease={handleIncrease}
-                onDecrease={handleDecrease}
-                onRemove={handleRemove}
-              />
-            </div>
-            <div>
-              <Summary
-                totalItems={totalItems}
-                subtotal={subtotal}
-                totalPrice={totalPrice}
-              />
-            </div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <OrderList
+              items={cartItems}
+              onIncrease={handleIncrease}
+              onDecrease={handleDecrease}
+              onRemove={handleRemove}
+            />
+          <div className="mt-8">
+              <SafeEasySection />
+        </div>
           </div>
-        )}
+          <div>
+            <Summary
+              totalItems={totalItems}
+              subtotal={subtotal}
+              totalPrice={totalPrice}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
