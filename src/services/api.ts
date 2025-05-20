@@ -8,7 +8,8 @@ export interface Event {
     time: string;
     place: string;
     price: number;
-    discount?: number;
+    discount: number;
+    finalPrice: number;
 }
 
 export interface CartItem {
@@ -41,6 +42,24 @@ const API_URL = import.meta.env.VITE_API_URL as string;
 export async function fetchEvents(): Promise<Event[]> {
   const res = await fetch(`${API_URL}/concerts`);
   if (!res.ok) throw new Error("Failed to fetch events");
+  return res.json();
+}
+
+export async function fetchFilteredEvents(params: {
+  minPrice?: number;
+  maxPrice?: number;
+  date?: string;
+  place?: string;
+}): Promise<Event[]> {
+  const queryParams = new URLSearchParams();
+  
+  if (params.minPrice !== undefined) queryParams.append('minPrice', params.minPrice.toString());
+  if (params.maxPrice !== undefined) queryParams.append('maxPrice', params.maxPrice.toString());
+  if (params.date) queryParams.append('date', params.date);
+  if (params.place) queryParams.append('place', params.place);
+
+  const res = await fetch(`${API_URL}/concerts?${queryParams.toString()}`);
+  if (!res.ok) throw new Error("Failed to fetch filtered events");
   return res.json();
 }
 
