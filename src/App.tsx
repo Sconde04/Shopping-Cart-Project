@@ -10,6 +10,7 @@ import { ThankYouPage } from "./pages/ThankYouPage";
 import { AlertProvider } from "./context/AlertContext";
 import { Alert } from "./components/Alert";
 import CheckoutPage from "./pages/CheckoutPage";
+import { Page404 } from "./pages/Page404";
 
 const App: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ const App: React.FC = () => {
                 <Route path="/cart" element={<ShoppingCartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/thank-you" element={<ThankYouPage />} />
+                <Route path="*" element={<Page404 />} />
               </Routes>
             </main>
             <Footer />
