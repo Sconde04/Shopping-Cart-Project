@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Events from "./pages/Events";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import { CartProvider } from "./context/CartContext";
+import { ThankYouPage } from "./pages/ThankYouPage";
 import { AlertProvider } from "./context/AlertContext";
 import { Alert } from "./components/Alert";
 
@@ -16,12 +17,13 @@ const App: React.FC = () => {
         <Router>
           {" "}
           {/* Environment all the application with the React Router */}
-          <div className="w-screen h-screen flex flex-col">
+          <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-1 bg-gray-100">
+            <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Events />} />
                 <Route path="/cart" element={<ShoppingCartPage />} />
+                <Route path="/thank-you" element={<ThankYouPage />} />
               </Routes>
             </main>
             <Footer />
