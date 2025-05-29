@@ -11,6 +11,7 @@ import { AlertProvider } from "./context/AlertContext";
 import { Alert } from "./components/Alert";
 import CheckoutPage from "./pages/CheckoutPage";
 import { Page404 } from "./pages/Page404";
+import Login from "./pages/Login";
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const App: React.FC = () => {
                 <Route path="/cart" element={<ShoppingCartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/thank-you" element={<ThankYouPage />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="*" element={<Page404 />} />
               </Routes>
             </main>
