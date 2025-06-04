@@ -1,7 +1,7 @@
 // Login.tsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { signInWithGoogle } from '../services/firebase';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = { email: string; password: string };
 
@@ -12,6 +12,7 @@ export const Login: React.FC = () => {
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<FormData>();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -22,16 +23,8 @@ export const Login: React.FC = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      setError(null);
-      const user = await signInWithGoogle();
-      console.log('Successfully signed in with Google:', user);
-      // Aqui tenemos que configurar la redirección a la página principal cuando el usuario se loguee
-    } catch (error) {
-      console.error('Error signing in with Google:', error);
-      setError('Error signing in with Google. Please try again.');
-    }
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:5245/auth/google";
   };
 
   return (
@@ -97,7 +90,7 @@ export const Login: React.FC = () => {
         {/* Google Sign-In */}
         <button
           type="button"
-          onClick={handleGoogleSignIn}
+          onClick={handleGoogleLogin}
           className="w-full flex items-center cursor-pointer justify-center py-2 border rounded hover:bg-white transition"
         >
           <img src="/Google_logo.png" alt="" className="w-5 h-5 mr-2" />
