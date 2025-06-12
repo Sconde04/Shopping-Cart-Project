@@ -40,7 +40,7 @@ const CartItem: React.FC<CartItemProps> = ({
   const hasDiscount = price && discountedPrice && discountedPrice < price;
 
   // Apply conditional classes for rounded borders
-  const containerClasses = `py-10 px-6 flex items-center bg-white ${
+  const containerClasses = `py-6 md:py-10 lg:py-12 xl:py-14 px-6 flex items-center bg-white ${
     isFirst ? 'rounded-t-lg' : ''
   } ${isLast ? 'rounded-b-lg' : ''}`;
 
@@ -48,30 +48,30 @@ const CartItem: React.FC<CartItemProps> = ({
     <>
       <div className={containerClasses}>
         {/* 1. Img align to left */}
-        <div className="flex-shrink-0 w-24 h-32 bg-gray-200 rounded-md overflow-hidden">
+        <div className="flex-shrink-0 w-24 sm:w-24 h-32 sm:h-32 bg-gray-200 rounded-md overflow-hidden">
           {image && <img src={image} alt={name} className="w-full h-full object-cover" />}
         </div>
 
         {/* 2. Main content */}
-        <div className="flex-1 ml-6 flex">
+        <div className="flex-1 ml-4 sm:ml-6 flex flex-col sm:flex-row">
           {/* Column left with name and quantity control */}
           <div className="flex-1">
             {/* Title */}
-            <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800">{name}</h3>
             
             {/* Additional info */}
             {description && (
-              <p className="text-lg font-bold text-gray-600 mb-16 line-clamp-1">{description}</p>
+              <p className="text-base md:text-lg sm:text-lg font-bold text-gray-600 mb-4 sm:mb-16 line-clamp-1">{description}</p>
             )}
             
             {/* Quantity Control */}
-            <div className="mt-4">
-              <div className="flex border-2 border-gray-300 rounded w-24">
+            <div className="mt-2 sm:mt-8">
+              <div className="flex border-2 border-gray-300 rounded w-20 sm:w-24">
                 <input
                   type="text"
                   value={quantity}
                   readOnly
-                  className="w-full text-center py-1"
+                  className="w-full text-center py-1 text-sm sm:text-base"
                 />
                 <div className="flex flex-col border-l-2 border-gray-300">
                   <button
@@ -92,34 +92,34 @@ const CartItem: React.FC<CartItemProps> = ({
           </div>
 
           {/* Column right with price and delete button */}
-          <div className="flex flex-col items-end justify-between">
+          <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between mt-4 sm:mt-0">
             {/* Delete Button */}        
             <button
               onClick={onRemove}
               className="p-2 bg-gray-100 hover:bg-gray-300 rounded-sm transition-colors"
             >
-              <FiTrash2 className="w-5 h-5 text-gray-500" />
+              <FiTrash2 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
             </button>
 
             {/* Price */}
-            <div className="text-right">
+            <div className="text-right ml-4 sm:ml-0">
               {hasDiscount && (
                 <div className="flex items-baseline justify-end space-x-2">
-                  <span className="text-lg text-gray-500 line-through">
+                  <span className="text-base sm:text-lg text-gray-500 line-through">
                     ${price.toFixed(2)}
                   </span>
-                  <span className="text-xl font-bold text-black">
+                  <span className="text-lg sm:text-xl font-bold text-black">
                     ${discountedPrice.toFixed(2)}
                   </span>
                 </div>
               )}
               {!hasDiscount && discountedPrice && (
-                <span className="text-xl font-bold text-black">
+                <span className="text-lg sm:text-xl font-bold text-black">
                   ${discountedPrice.toFixed(2)}
                 </span>
               )}
               {hasDiscount && (
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-xs sm:text-sm text-gray-600 mt-1">
                   You save {savedPercent}%
                 </p>
               )}

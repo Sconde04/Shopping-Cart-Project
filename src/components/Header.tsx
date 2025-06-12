@@ -16,12 +16,12 @@ const Header: React.FC = () => {
       <div className="bg-[rgb(60,60,60)] text-white text-sm text-center py-2">
         Free shipping on all orders over $200! For a limited time only.
       </div>
-      <div className="relative flex items-center h-34 px-12 py-12 border-b-2 border-gray-200">
+      <div className="relative flex items-center h-34 px-4 md:px-12 py-12 border-b-2 border-gray-200">
         {/* Back to Shop link, only visible on cart page */}
         {!isHome && (
           <Link
             to="/"
-            className="absolute left-24 bottom-4 flex items-center text-gray-700 hover:text-gray-900"
+            className="flex mt-20 items-center text-gray-700 hover:text-gray-900 -ml-2 md:ml-0"
           >
             <FiArrowLeft className="w-5 h-5" />
             <span className="ml-2">Back to Shop</span>

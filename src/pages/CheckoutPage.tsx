@@ -44,7 +44,7 @@ const CheckoutPage: React.FC = () => {
           Checkout
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:gap-8 mb-10">
           <div className="md:col-span-2">
             <BuyerInfoCard />
             {!isLoading && !error && cartItems.length > 0 && (
@@ -59,23 +59,6 @@ const CheckoutPage: React.FC = () => {
             )}
             <div className="mt-10">
               <PaymentMethodSelector />
-              <Link to="/thank-you">
-                <Button
-                  label="COMPLETE PURCHASE"
-                  onClick={() => {
-                    /* Tenemos que añadir el enlace a la poagina de thank you (PENDINENTE) */
-                  }}
-                  className="w-full font-semibold text-lg h-12"
-                />
-              </Link>
-            </div>
-            <div className="text-center text-gray-500 text-sm mt-4 px-10">
-              <p>
-                By clicking "Complete Purchase", Ic onfirm that I am aware and
-                accept that I am obligued to pay for my order, I accept the
-                Terms and Conditions and confirm that I have read the Privacy
-                Policy.
-              </p>
             </div>
           </div>
           <div className="mt-1">
@@ -84,6 +67,25 @@ const CheckoutPage: React.FC = () => {
               subtotal={subtotal}
               totalPrice={totalPrice}
             />
+          </div>
+          <div className="mt-12 md:col-span-2 md:mt-0">
+            <Link to="/thank-you">
+              <Button
+                label="COMPLETE PURCHASE"
+                onClick={() => {
+                  /* Tenemos que añadir el enlace a la poagina de thank you (PENDINENTE) */
+                }}
+                className="w-full font-semibold text-lg h-12"
+              />
+            </Link>
+            <div className="text-center text-gray-500 text-sm mt-4 px-10">
+              <p>
+                By clicking "Complete Purchase", Ic onfirm that I am aware and
+                accept that I am obligued to pay for my order, I accept the
+                Terms and Conditions and confirm that I have read the Privacy
+                Policy.
+              </p>
+            </div>
           </div>
         </div>
       </div>

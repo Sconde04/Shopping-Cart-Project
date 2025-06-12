@@ -6,12 +6,12 @@ export const ThankYouPage = () => {
 
   return (
     <div className="bg-gray-200 min-h-screen flex justify-center">
-      <div className="w-[50%] mt-[5%]">
+      <div className="w-[80%] mt-[15%]">
         <h1 className="text-4xl font-bold text-center mb-5">Thank You!</h1>
         <p className="text-gray-800 mb-8 text-center">
           Your order was completed successfuly.
         </p>
-        <div className="bg-white p-10 rounded-lg">
+        <div className="bg-white p-12 rounded-lg">
           <p className="mb-5">
             An email receipt, including all details about your order, has been
             sent to the email address you provided. Please keep it for your
