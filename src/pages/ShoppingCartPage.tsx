@@ -2,6 +2,7 @@
 import React from "react";
 import OrderList from "../components/OrderList";
 import Summary from "../components/Summary";
+import SafeEasySection from "../components/SafeEasySection";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
@@ -43,19 +44,16 @@ const ShoppingCartPage: React.FC = () => {
         <p className="flex justify-center text-gray-600 mb-8 sm:mb-14 text-center px-4">
           Shipping charges and discount codes are confirmed at checkout.
         </p>
-
         {isLoading && (
           <div className="flex justify-center items-center h-40">
             <p className="text-gray-500">Loading cart...</p>
           </div>
         )}
-
         {error && (
           <div className="flex justify-center items-center h-40">
             <p className="text-red-500">{error}</p>
           </div>
         )}
-
         {!isLoading && !error && cartItems.length === 0 && (
           <div className="flex flex-col justify-center items-center h-40">
             <p className="text-gray-500 text-xl mb-4">Your cart is empty</p>
@@ -64,7 +62,6 @@ const ShoppingCartPage: React.FC = () => {
             </a>
           </div>
         )}
-
         {!isLoading && !error && cartItems.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
             <div className="lg:col-span-2 w-full overflow-x-auto">
@@ -74,6 +71,9 @@ const ShoppingCartPage: React.FC = () => {
                 onDecrease={handleDecrease}
                 onRemove={handleRemove}
               />
+              <div className="mt-8">
+                <SafeEasySection />
+              </div>
             </div>
             <div className="w-full mt-8 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0">
               <Summary
@@ -89,6 +89,7 @@ const ShoppingCartPage: React.FC = () => {
             </div>
           </div>
         )}
+        ;
       </div>
     </div>
   );
