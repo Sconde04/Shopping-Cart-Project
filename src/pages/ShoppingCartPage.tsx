@@ -36,12 +36,12 @@ const ShoppingCartPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-100">
-      <div className="container mx-auto p-8">
-        <h1 className="flex justify-center text-3xl font-bold mb-2 mt-4">
+    <div className="bg-gray-100 min-h-screen">
+      <div className="container mx-auto px-4 sm:px-8 py-4 sm:py-8">
+        <h1 className="flex justify-center text-2xl sm:text-3xl font-bold mb-2 mt-4">
           Shopping Cart
         </h1>
-        <p className="flex justify-center text-gray-600 mb-14">
+        <p className="flex justify-center text-gray-600 mb-8 sm:mb-14 text-center px-4">
           Shipping charges and discount codes are confirmed at checkout.
         </p>
         {isLoading && (
@@ -63,8 +63,8 @@ const ShoppingCartPage: React.FC = () => {
           </div>
         )}
         {!isLoading && !error && cartItems.length > 0 && (
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+            <div className="lg:col-span-2 w-full overflow-x-auto">
               <OrderList
                 items={cartItems}
                 onIncrease={handleIncrease}
@@ -75,14 +75,14 @@ const ShoppingCartPage: React.FC = () => {
                 <SafeEasySection />
               </div>
             </div>
-            <div>
+            <div className="w-full mt-8 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0">
               <Summary
                 totalItems={totalItems}
                 subtotal={subtotal}
                 totalPrice={totalPrice}
               />
               <Link to="/checkout">
-                <button className="flex justify-center w-60 mx-auto mt-4 bg-[rgb(60,60,60)] text-white text-sm font-semibold py-3 rounded-lg hover:bg-gray-800 transition">
+                <button className="flex justify-center w-full sm:w-60 mx-auto mt-8 sm:mt-8 md:mt-8 lg:mt-7 xl:mt-6 bg-[rgb(60,60,60)] text-white text-sm font-semibold py-3 rounded-lg hover:bg-gray-800 transition">
                   GO TO CHECKOUT
                 </button>
               </Link>
